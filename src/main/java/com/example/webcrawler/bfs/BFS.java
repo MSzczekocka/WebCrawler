@@ -33,14 +33,8 @@ public class BFS {
                 return this.graphImplementation.getVisitedUrl();
             }
 
-            BufferedReader br = skipNotCorrectUrl(currentUrl);
-            StringBuilder sb = new StringBuilder();
+            currentUrl = getUrl(currentUrl);
 
-            while((currentUrl = br.readLine()) != null) {
-                sb.append(currentUrl);
-            }
-
-            currentUrl = sb.toString();
             Pattern pattern = Pattern.compile(this.urlPattern);
             Matcher matcher = pattern.matcher(currentUrl);
 
@@ -62,17 +56,24 @@ public class BFS {
         return this.graphImplementation.getVisitedUrl();
     }
 
-    BufferedReader skipNotCorrectUrl(String currentUrl) {
+    String getUrl(String currentUrl) throws IOException {
+        BufferedReader br = null;
         boolean correctURLFound = false;
         while (!correctURLFound) {
             try {
                 URL url = new URL(currentUrl);
-                return new BufferedReader(new InputStreamReader(url.openStream()));
+                br = new BufferedReader(new InputStreamReader(url.openStream()));
+                correctURLFound = true;
             } catch (IOException e) {
                 currentUrl = graphImplementation.removeUrlForQueue();
             }
         }
-        return null;
-    }
 
+        StringBuilder sb = new StringBuilder();
+
+        while((currentUrl = br.readLine()) != null) {
+            sb.append(currentUrl);
+        }
+        return sb.toString();
+    }
 }
