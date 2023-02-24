@@ -26,32 +26,11 @@ public class BFS {
     public Set<String> bfs() throws IOException {
         graphImplementation.addUrlToQueue(this.firstUrl);
 
-        while (!graphImplementation.isQueueEmpty()) {
+        while (!graphImplementation.isQueueEmpty() && graphImplementation.getUrlNo() < this.maximumUrlNo) {
             String currentUrl = graphImplementation.removeUrlForQueue();
 
-            if (graphImplementation.getUrlNo() > this.maximumUrlNo) {
-                return this.graphImplementation.getVisitedUrl();
-            }
-
             currentUrl = getUrl(currentUrl);
-
-            Pattern pattern = Pattern.compile(this.urlPattern);
-            Matcher matcher = pattern.matcher(currentUrl);
-
-            while(matcher.find()){
-                String urlString = matcher.group();
-
-                if(!graphImplementation.isSetContainUrl(urlString)){
-                    graphImplementation.addUrlToSet(urlString);
-                    System.out.println("URL crawled just now: " + urlString);
-                    graphImplementation.addUrlToQueue(urlString);
-                    if(graphImplementation.getUrlNo()>this.maximumUrlNo) {
-                        return this.graphImplementation.getVisitedUrl();
-                    }
-
-                }
-            }
-
+            crawlUrl(currentUrl);
         }
         return this.graphImplementation.getVisitedUrl();
     }
@@ -76,4 +55,19 @@ public class BFS {
         }
         return sb.toString();
     }
+
+    void crawlUrl(String currentUrl) {
+        Pattern pattern = Pattern.compile(this.urlPattern);
+        Matcher matcher = pattern.matcher(currentUrl);
+
+        while(matcher.find() && graphImplementation.getUrlNo() < this.maximumUrlNo){
+            String urlString = matcher.group();
+
+            if(!graphImplementation.isSetContainUrl(urlString)){
+                graphImplementation.addUrlToSet(urlString);
+                graphImplementation.addUrlToQueue(urlString);
+            }
+        }
+    }
+
 }
