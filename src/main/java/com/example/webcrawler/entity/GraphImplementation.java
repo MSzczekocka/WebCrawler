@@ -1,4 +1,4 @@
-package com.example.webcrawler.graph;
+package com.example.webcrawler.entity;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -6,8 +6,8 @@ import java.util.Queue;
 import java.util.Set;
 
 public class GraphImplementation {
-    private Queue<String> nodesQueue = new LinkedList<>();
-    private Set<String> visitedUrl = new HashSet<>();
+    private final Queue<String> nodesQueue;
+    private final Set<String> visitedUrl;
     private long urlNo;
 
     public GraphImplementation() {
