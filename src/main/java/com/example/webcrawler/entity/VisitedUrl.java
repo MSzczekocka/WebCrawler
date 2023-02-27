@@ -15,7 +15,7 @@ public class VisitedUrl {
     @JsonIgnore
     private long id;
 
-//    @Column(unique=true)
+    @Column(unique=true)
     private String visitedUrl;
 
     public VisitedUrl() {

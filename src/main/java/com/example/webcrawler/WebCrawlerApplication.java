@@ -1,6 +1,7 @@
 package com.example.webcrawler;
 
 import com.example.webcrawler.bfs.BfsImplementation;
+import com.example.webcrawler.export.Exporter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,13 +20,8 @@ public class WebCrawlerApplication {
 
         try{
             Set<String> urlsCrawled = myCrawler.bfs();
-
-            System.out.println(urlsCrawled.size() + " web sites crawled!");
-            System.out.println("Here is the list: ");
-            for(String s : urlsCrawled){
-                System.out.println(s);
-            }
-        }catch(IOException e){
+            Exporter.exportData(urlsCrawled);
+        }catch(Exception e){
             System.out.println("IOException: " + e);
         }
     }
