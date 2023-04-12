@@ -1,13 +1,14 @@
 package com.example.webcrawler.bfs;
 
 import com.example.webcrawler.entity.GraphImplementation;
+import com.example.webcrawler.entity.VisitedUrl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +23,7 @@ public class BfsImplementation {
         this.graphImplementation = new GraphImplementation();
     }
 
-    public Set<String> bfs() throws IOException {
+    public List<VisitedUrl> bfs() throws IOException {
         graphImplementation.addUrlToQueue(this.firstUrl);
 
         while (!graphImplementation.isQueueEmpty() && graphImplementation.getUrlNo() < this.maximumUrlNo) {

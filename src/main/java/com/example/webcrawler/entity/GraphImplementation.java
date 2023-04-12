@@ -1,23 +1,23 @@
 package com.example.webcrawler.entity;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import com.example.webcrawler.services.VisitedUrlService;
+import lombok.RequiredArgsConstructor;
 
+import java.util.*;
+
+
+@RequiredArgsConstructor
 public class GraphImplementation {
     private final Queue<String> nodesQueue;
-    private final Set<String> visitedUrl;
     private long urlNo;
 
     public GraphImplementation() {
         this.nodesQueue = new LinkedList<>();
-        this.visitedUrl = new HashSet<>();
         this.urlNo = 0L;
     }
 
-    public Set<String> getVisitedUrl() {
-        return visitedUrl;
+    public List<VisitedUrl> getVisitedUrl() {
+        return VisitedUrlService.getAllVisitedUrl();
     }
 
     public long getUrlNo() {
@@ -36,7 +36,7 @@ public class GraphImplementation {
     }
 
     public void addUrlToSet(String url) {
-        visitedUrl.add(url);
+        VisitedUrlService.addVisitedUrl(new VisitedUrl(1, url));
         this.urlNo++;
     }
 
@@ -45,6 +45,6 @@ public class GraphImplementation {
     }
 
     public boolean isSetContainUrl(String url) {
-        return this.visitedUrl.contains(url);
+        return VisitedUrlService.getVisitedUrlByNam(url).isPresent();
     }
 }
