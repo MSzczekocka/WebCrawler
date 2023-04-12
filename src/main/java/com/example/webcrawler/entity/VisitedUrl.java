@@ -1,23 +1,42 @@
 package com.example.webcrawler.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+
 @AllArgsConstructor
-@Entity
-@Table(name = "visitedurl")
 public class VisitedUrl {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
-    private long id;
-
-    @Column(unique=true)
+    private int id;
     private String visitedUrl;
 
     public VisitedUrl() {
+    }
+
+    public VisitedUrl(String visitedUrl) {
+        this.visitedUrl = visitedUrl;
+    }
+
+    public String getVisitedUrl() {
+        return visitedUrl;
+    }
+
+    public void setVisitedUrl(String visitedUrl) {
+        this.visitedUrl = visitedUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "VisitedUrl{" +
+                "id=" + id +
+                ", visitedUrl='" + visitedUrl + '\'' +
+                '}';
     }
 }
